@@ -22,7 +22,7 @@ export default {
     //
     linlin(event) {
       let value = event.target.value
-      console.log(value);
+      // console.log(value);
       // 正则的匹配方法
       if (this.rules && this.rules.test(value)) {
         this.statu = true

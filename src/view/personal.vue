@@ -1,13 +1,14 @@
 <template>
 <div class="personal">
-    <router-link :to="{path:`/personal/${currentUser.id}`}">
+    <!-- <router-link :to="{path:`/personal/${currentUser.id}`}"> -->
+    <router-link :to="{path:`/editPersonal/${currentUser.id}`}">
     <div class="profile">
         <img :src="currentUser.head_img" alt />
         <div class="profile-centen">
             <div class="name">
                 <span class="iconfont iconxingbienan"></span>{{currentUser.nickname}}
             </div>
-             <div class="time">{{currentUser.create_date | dateFormat}}</div>
+             <div class="time">{{currentUser.create_date}}</div>
         </div>
         <span class="iconfont iconjiantou1"></span>
     </div>
@@ -23,17 +24,18 @@
 <script>
 import hmcell from '@/components/hmcell.vue'
 import hmbutton from '@/components/hmbutton.vue'
-import { getUserById } from '@/apis/user.js'
-import { dateFormat } from '@/utils/filters.js'
+import { login, xie } from '@/apis/user.js'
+
+// import { dateFormat } from '@/utils/filters.js'
 export default {
   components: {
     hmcell, hmbutton
   },
   filters: {
-    dateFormat
+    // dateFormat
   },
   user: {
-    getUserById
+    login
   },
   data() {
     return {
@@ -42,7 +44,26 @@ export default {
 
       }
     }
+  },
+  methods: {
+    exit () {
+      console.log(123)
+    }
+  },
+  async mounted() {
+    let res = await xie(this.$route.params.id)
+    console.log(res)
+    if (res.data.message === '获取成功') {
+      this.currentUser = res.data.data
+      if (this.currentUser.head_img) {
+        this.currentUser.head_img = 'http://127.0.0.1:3000' + this.currentUser.head_img
+      } else {
+        this.currentUser.head_img = 'http://127.0.0.1:3000/uploads/image/default.png'
+      }
+      console.log(this.currentUser)
+    }
   }
+
 }
 </script>
 

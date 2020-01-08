@@ -8,3 +8,16 @@ export const login = (data) => {
     data
   })
 }
+export const xie = (id) => {
+  return axios({
+    method: 'get',
+    url: `/user/${id}`
+  })
+}
+export const updateUserById = (id, data) => {
+  return axios({
+    method: 'post',
+    url: `/user_update/${id}`,
+    data
+  })
+}

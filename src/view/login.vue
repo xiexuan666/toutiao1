@@ -44,8 +44,8 @@ export default {
   data() {
     return {
       users: {
-        username: '',
-        password: ''
+        username: '10086',
+        password: '123'
       }
     };
   },
@@ -60,22 +60,24 @@ export default {
         // async:标志当前方法有异步操作
         // await:可以拿到回调函数中的结果
         let res = await login(this.users);
-        console.log(res);
+        // console.log(res);
         if (res.data.message === '用户不存在') {
           // 用户提示
           this.$toast.fail(res.data.message);
         } else {
           // 将当前页面跳转 存token
-          localStorage.setItem('toutiao_77_token', res.data.data.token);
+          localStorage.setItem('token', res.data.data.token);
+          console.log(123)
           // 将数据保存到本地存储
-          localStorage.setItem('toutiao_77_token', JSON.stringify(res.data.data.users))
+          localStorage.setItem('users', JSON.stringify(res.data.data.user))
           // 实现页面跳转
-          this.$router.push({ path: `/personal/${res.data.data.token}` })
+          this.$router.push({ path: `/personal/${res.data.data.user.id}` })
+
           // 存储到本地
-          localStorage.setItem(
-            'toutiao_66_token',
-            JSON.stringify(res.data.data.users)
-          );
+          // localStorage.setItem(
+          //   'toutiao_66_token',
+          //   JSON.stringify(res.data.data.users)
+          // );
         }
       } else {
         this.$toast.fail('数据输入的不正确');
@@ -89,7 +91,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.xiexuan {
+.login {
   padding: 20px;
 }
 

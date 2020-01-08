@@ -17,6 +17,12 @@ let router = new VueRouter({
     name: 'personal',
     path: '/personal/:id',
     component: personal
+  },
+  {
+    name: 'editPersonal',
+    path: '/editPersonal/:id',
+    component: personal
+
   }
   ]
 })
@@ -28,7 +34,7 @@ let router = new VueRouter({
 router.beforeEach((to, from, next) => {
   if (to.path.indexOf('/personal') === 0) {
     // 如果用户登录过，则进行路由的跳转，否则重定向到登录页
-    let token = localStorage.getItem('toutiao_77_token')
+    let token = localStorage.getItem('token')
     if (token) { // 如果有token说明你登录过了
       next()
     } else {

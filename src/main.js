@@ -2,8 +2,9 @@ import Vue from 'vue'
 import router from '@/router/index.js'
 import App from './App'
 // 引入vant框架全局
-import { Button, Toast } from 'vant'
-Vue.use(Button)
+import { Button, Toast, Uploader } from 'vant'
+Vue.use(Uploader)
+  .use(Button)
   .use(Toast)
 
 // import Vant from 'vant'
