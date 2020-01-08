@@ -1,14 +1,14 @@
 <template>
 <div class="personal">
     <!-- <router-link :to="{path:`/personal/${currentUser.id}`}"> -->
-    <router-link :to="{path:`/editPersonal/${currentUser.id}`}">
+    <router-link :to="{name: 'editPersonal'}">
     <div class="profile">
         <img :src="currentUser.head_img" alt />
         <div class="profile-centen">
             <div class="name">
                 <span class="iconfont iconxingbienan"></span>{{currentUser.nickname}}
             </div>
-             <div class="time">{{currentUser.create_date}}</div>
+             <div class="time">{{currentUser.create_date | dateFormat}}</div>
         </div>
         <span class="iconfont iconjiantou1"></span>
     </div>
@@ -25,6 +25,7 @@
 import hmcell from '@/components/hmcell.vue'
 import hmbutton from '@/components/hmbutton.vue'
 import { login, xie } from '@/apis/user.js'
+import { dateFormat } from '@/utils/filter.js'
 
 // import { dateFormat } from '@/utils/filters.js'
 export default {
@@ -32,7 +33,7 @@ export default {
     hmcell, hmbutton
   },
   filters: {
-    // dateFormat
+    dateFormat
   },
   user: {
     login
@@ -47,7 +48,9 @@ export default {
   },
   methods: {
     exit () {
-      console.log(123)
+      localStorage.removeItem('token')
+      // 加到首页
+      this.$router.push({ name: 'Index' })
     }
   },
   async mounted() {
@@ -60,11 +63,10 @@ export default {
       } else {
         this.currentUser.head_img = 'http://127.0.0.1:3000/uploads/image/default.png'
       }
-      console.log(this.currentUser)
+      // console.log(this.currentUser)
     }
   }
-
-}
+};
 </script>
 
 <style lang='less' scoped>

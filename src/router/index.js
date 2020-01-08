@@ -2,8 +2,10 @@
 import Vue from 'vue'
 // 在引入vue-router
 import VueRouter from 'vue-router'
-import login from '@/view/login'
-import personal from '@/view/personal'
+// 引入组件  在底下做映射
+import login from '@/view/login.vue'
+import personal from '@/view/personal.vue'
+import editPersonal from '@/view/editPersonal.vue'
 // 然后在挂载在use
 Vue.use(VueRouter)
 // 创建一个路由
@@ -21,7 +23,7 @@ let router = new VueRouter({
   {
     name: 'editPersonal',
     path: '/editPersonal/:id',
-    component: personal
+    component: editPersonal
 
   }
   ]

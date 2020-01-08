@@ -2,10 +2,15 @@ import Vue from 'vue'
 import router from '@/router/index.js'
 import App from './App'
 // 引入vant框架全局
-import { Button, Toast, Uploader } from 'vant'
+import { Button, Toast, Uploader, Dialog, Field, Picker } from 'vant'
+// 引入全局样式
+import '@/styles/reset.css'
 Vue.use(Uploader)
   .use(Button)
   .use(Toast)
+  .use(Dialog)
+  .use(Field)
+  .use(Picker)
 
 // import Vant from 'vant'
 // import 'vant/lib/index.css'

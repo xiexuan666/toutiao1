@@ -1,5 +1,5 @@
 <template>
-<div class="App">
+<div class="app">
   <!-- 展示路由 -->
 <router-view></router-view>
 </div>
@@ -7,6 +7,7 @@
 
 <script>
 export default {
+  name: 'app'
 }
 </script>
 
