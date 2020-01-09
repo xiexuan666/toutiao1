@@ -66,7 +66,7 @@ export default {
           this.$toast.fail(res.data.message);
         } else {
           // 将当前页面跳转 存token
-          localStorage.setItem('token', res.data.data.token);
+          localStorage.setItem('token_78', res.data.data.token);
           console.log(123)
           // 将数据保存到本地存储
           localStorage.setItem('users', JSON.stringify(res.data.data.user))

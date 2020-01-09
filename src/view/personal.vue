@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     exit () {
-      localStorage.removeItem('token')
+      localStorage.removeItem('token_78')
       // 加到首页
       this.$router.push({ name: 'Index' })
     }

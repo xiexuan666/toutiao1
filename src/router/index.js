@@ -6,6 +6,8 @@ import VueRouter from 'vue-router'
 import login from '@/view/login.vue'
 import personal from '@/view/personal.vue'
 import editPersonal from '@/view/editPersonal.vue'
+import Index from '../view/Index.vue'
+import register from '../view/register.vue'
 // 然后在挂载在use
 Vue.use(VueRouter)
 // 创建一个路由
@@ -24,6 +26,18 @@ let router = new VueRouter({
     name: 'editPersonal',
     path: '/editPersonal/:id',
     component: editPersonal
+
+  },
+  {
+    name: 'Index',
+    path: '/',
+    component: Index
+
+  },
+  {
+    name: 'register',
+    path: '/register',
+    component: register
 
   }
   ]

@@ -8,16 +8,26 @@ export const login = (data) => {
     data
   })
 }
+// 2.根据id获取用户详情
 export const xie = (id) => {
   return axios({
-    method: 'get',
+    // method: 'get',
     url: `/user/${id}`
   })
 }
+// 3. 更新个人信息
 export const updateUserById = (id, data) => {
   return axios({
     method: 'post',
     url: `/user_update/${id}`,
+    data
+  })
+}
+/// / 4. 实现用户注册
+export const register = (data) => {
+  return axios({
+    method: 'post',
+    url: '/register',
     data
   })
 }

@@ -48,21 +48,8 @@ export default {
       gender: ''
     };
   },
-  async mounted() {
-    let res = await getUserById(this.$route.params.id)
-    console.log(res);
-    if (res.data.message === '获取成功') {
-      this.currentUser = res.data.data;
-      // 如果有图片就拼接
-      if (this.currentUser.header_img) {
-        this.currentUser.header_img =
-        'http//:127.0.0.1:3000' + this.currentUser.header_img;
-      } else {
-        // 如果没有图片就设置吗，默认的图片
-        this.currentUser.header_img =
-         'http://127.0.0.1:3000/uploads/images/default.png';
-      }
-    }
+  mounted() {
+    this.getUserById()
   },
   methods: {
     // 当用户选择完文件之后触发
@@ -168,6 +155,22 @@ export default {
     onChange(picker, value, index) {
       this.$toast(`当前值:${value},当前索引:${index}`);
       this.gender = index;
+    },
+    async getUserById() {
+      let res = await getUserById(this.$route.params.id)
+      console.log(res);
+      if (res.data.message === '获取成功') {
+        this.currentUser = res.data.data;
+        // 如果有图片就拼接
+        if (this.currentUser.header_img) {
+          this.currentUser.header_img =
+        'http//:127.0.0.1:3000' + this.currentUser.header_img;
+        } else {
+        // 如果没有图片就设置吗，默认的图片
+          this.currentUser.header_img =
+         'http://127.0.0.1:3000/uploads/images/default.png';
+        }
+      }
     }
   }
 

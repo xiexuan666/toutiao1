@@ -5,11 +5,11 @@
       <div class="logo">
         <span class="iconfont iconnew"></span>
       </div>
-      <div class="search" @click="$router.push({name:'Search'})">
+      <div class="search" @click="$router.push({ name: 'Search' })">
         <van-icon name="search" />
         <span>搜索商品</span>
       </div>
-      <div class="user" @click="$router.push({path:`/personal/${id}`})">
+      <div class="user" @click="$router.push({ path: `/personal/${id}` })">
         <van-icon name="manager-o" />
       </div>
     </div>
@@ -22,7 +22,11 @@
         <!-- 生成栏目数据 -->
         <van-tab :title="cate.name" v-for="cate in cateList" :key="cate.id">
           <!-- 生成当前栏目的文章列表数据 -->
-          <hmarticleblock v-for="item in cate.postList" :key="item.id" :post="item"></hmarticleblock>
+          <hmarticleblock
+            v-for="item in cate.postList"
+            :key="item.id"
+            :post="item"
+          ></hmarticleblock>
         </van-tab>
       </van-tabs>
     </div>
@@ -36,11 +40,23 @@ import { getCateList } from '@/apis/cate.js';
 import { getPostList } from '@/apis/article.js';
 import hmarticleblock from '@/components/hmarticleBlock.vue';
 export default {
+  methods: {
+    async init() {
+      let id = this.cateList[this.active].id;
+      let res2 = await getPostList({
+        pageSize: this.cateList[this.active].pageSize,
+        pageIndex: this.cateList[this.active].pageIndex,
+        category: id
+      });
+      // 将数据存储到当前栏目的postList中
+      this.cateList[this.active].postList = res2.data.data;
+    }
+  },
   data() {
     return {
       id: '',
       // 我们应该始终让头条被激活。如果登陆过，栏目数据中返回了关注，那么应该将active设置为1，否则设置为0
-      active: localStorage.getItem('toutiao_66_token') ? 1 : 0,
+      active: localStorage.getItem('token') ? 1 : 0,
       cateList: []
     };
   },
@@ -51,7 +67,7 @@ export default {
       // 重新发起请求，获取当前栏目的新闻数据
       // 注意：如果之前已经加载好数据了，那么就不用再重复的加载
       if (this.cateList[this.active].postList.length === 0) {
-        this.init()
+        this.init();
       }
     }
   },
@@ -60,9 +76,7 @@ export default {
   },
   async mounted() {
     // 获取用户id
-    this.id = JSON.parse(
-      localStorage.getItem('toutiao_77_userInfo') || '{}'
-    ).id;
+    this.id = JSON.parse(localStorage.getItem('user') || '{}').id;
 
     // 获取所有栏目数据
     let res = await getCateList();
@@ -82,25 +96,12 @@ export default {
     console.log(this.cateList);
     // 获取默认栏目的新闻数据，并动态渲染
     // this.cateList[this.active]:就是当前的默认栏目
-    this.init()
-  },
-  methods: {
-
-    async init() {
-      let id = this.cateList[this.active].id;
-      let res2 = await getPostList({
-        pageSize: this.cateList[this.active].pageSize,
-        pageIndex: this.cateList[this.active].pageIndex,
-        category: id
-      });
-      // 将数据存储到当前栏目的postList中
-      this.cateList[this.active].postList = res2.data.data;
-    }
+    this.init();
   }
 };
 </script>
 
-<style lang='less' scoped>
+<style lang="less" scoped>
 .header {
   width: 100%;
   height: 50px;

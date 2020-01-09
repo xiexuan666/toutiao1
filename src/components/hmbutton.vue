@@ -1,5 +1,10 @@
 <template>
-<div class="btn" @click="handlerclick">
+<div class="btn" @click="handlerclick"
+ :class="{
+      primary:type==='primary',
+      success:type==='success',
+      info:type === 'info'
+  }">
 <span :class="icon"></span>
 <slot></slot>
 </div>
@@ -7,7 +12,7 @@
 
 <script>
 export default {
-  props: ['icon'],
+  props: ['icon', 'type'],
   methods: {
     handlerclick() {
       this.$emit('click', event)
